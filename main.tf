@@ -96,16 +96,6 @@ resource "aws_eks_cluster" "devops" {
   }
 }
 
-
-resource "aws_eks_addon" "ebs_csi_driver" {
-  cluster_name    = aws_eks_cluster.devops.name
-  addon_name      = "aws-ebs-csi-driver"
-  
-  resolve_conflicts_on_create = "OVERWRITE"
-  resolve_conflicts_on_update = "OVERWRITE"
-}
-
-
 resource "aws_eks_node_group" "devops" {
   cluster_name    = aws_eks_cluster.devops.name
   node_group_name = "devops-node-group"
@@ -114,7 +104,7 @@ resource "aws_eks_node_group" "devops" {
 
   scaling_config {
     desired_size = 1
-    max_size     = 1
+    max_size     = 2
     min_size     = 1
   }
 
